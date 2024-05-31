@@ -1,0 +1,91 @@
+$grid-columns: 12;
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+$layout-values: flex-start, flex-end, center, space-between, space-around,
+  space-evenly;
+
+@each $value in $layout-values {
+  .justify-#{$value} {
+    justify-content: $value;
+  }
+}
+
+// gap-2, gap-3, gap-4 etc.
+$base-gap: 2px;
+@for $i from 1 through 8 {
+  .gap-#{$i} {
+    --_gap: #{$i * $base-gap};
+    gap: var(--_gap);
+  }
+}
+
+// col-12-xs, col-5-md, col-3-lg etc.
+@for $i from 1 through $grid-columns {
+  .col-#{$i} {
+    --columns: calc(#{$grid-columns} / #{$i});
+    // total amount of gap needed to be subtracted from the column width
+    --gap: calc(var(--_gap) * (var(--columns) - 1) / var(--columns));
+    flex-grow: 0;
+    width: calc(calc(100% / $grid-columns * $i) - var(--gap));
+  }
+}
+
+@include sm {
+  @for $i from 1 through $grid-columns {
+    .col-#{$i}-sm {
+      --columns: calc(#{$grid-columns} / #{$i});
+      // total amount of gap needed to be subtracted from the column width
+      --gap: calc(var(--_gap) * (var(--columns) - 1) / var(--columns));
+      flex-grow: 0;
+      width: calc(calc(100% / $grid-columns * $i) - var(--gap));
+    }
+  }
+}
+@include md {
+  @for $i from 1 through $grid-columns {
+    .col-#{$i}-md {
+      --columns: calc(#{$grid-columns} / #{$i});
+      // total amount of gap needed to be subtracted from the column width
+      --gap: calc(var(--_gap) * (var(--columns) - 1) / var(--columns));
+      flex-grow: 0;
+      width: calc(calc(100% / $grid-columns * $i) - var(--gap));
+    }
+  }
+}
+@include lg {
+  @for $i from 1 through $grid-columns {
+    .col-#{$i}-lg {
+      --columns: calc(#{$grid-columns} / #{$i});
+      // total amount of gap needed to be subtracted from the column width
+      --gap: calc(var(--_gap) * (var(--columns) - 1) / var(--columns));
+      flex-grow: 0;
+      width: calc(calc(100% / $grid-columns * $i) - var(--gap));
+    }
+  }
+}
+@include xl {
+  @for $i from 1 through $grid-columns {
+    .col-#{$i}-xl {
+      --columns: calc(#{$grid-columns} / #{$i});
+      // total amount of gap needed to be subtracted from the column width
+      --gap: calc(var(--_gap) * (var(--columns) - 1) / var(--columns));
+      flex-grow: 0;
+      width: calc(calc(100% / $grid-columns * $i) - var(--gap));
+    }
+  }
+}
+@include xxl {
+  @for $i from 1 through $grid-columns {
+    .col-#{$i}-xxl {
+      --columns: calc(#{$grid-columns} / #{$i});
+      // total amount of gap needed to be subtracted from the column width
+      --gap: calc(var(--_gap) * (var(--columns) - 1) / var(--columns));
+      flex-grow: 0;
+      width: calc(calc(100% / $grid-columns * $i) - var(--gap));
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "PerfectGridSystem",
+  "version": "1.0.0",
+  "description": "A flexbox based utility grid sytem. Tailwind like classname based syntax.",
+  "main": "_grid.scss",
+  "author": "Nazmus Sakib",
+  "license": "MIT"
+}
