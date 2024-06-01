@@ -1,6 +1,7 @@
 $grid-columns: 12;
 
 .row {
+  --_gap: 0px;
   display: flex;
   flex-wrap: wrap;
 }
