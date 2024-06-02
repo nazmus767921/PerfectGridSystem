@@ -1,30 +1,70 @@
+// || _-_-_-_-_-_ VARIABLES _-_-_-_-_-_ || //
 $grid-columns: 12;
+$total-gaps: 24;
+$base-gap: 0.1rem; // 0.1rem -> 1px in rem
+$layout-values: flex-start, flex-end, center, space-between, space-around,
+  space-evenly;
+$layout-directions: row, row-reverse, column, column-reverse;
+$display: grid, block, inline, inline-flex, flex, hidden, unset;
 
+// || _-_-_-_-_-_ GRID SYSTEM _-_-_-_-_-_ || //
 .row {
-  --_gap: 0px;
+  // Set as a parent of all columns to make the columns functional
+  --_gap: 0rem;
   display: flex;
   flex-wrap: wrap;
 }
 
-$layout-values: flex-start, flex-end, center, space-between, space-around,
-  space-evenly;
+// || _-_-_-_-_-_ DISPLAY _-_-_-_-_-_ || //
+@each $value in $display {
+  @if $value == hidden {
+    .display-#{$value} {
+      display: none;
+    }
+  } @else {
+    .display-#{$value} {
+      display: $value;
+    }
+  }
+}
 
+// || _-_-_-_-_-_ FLEX _-_-_-_-_-_ || //
+@each $value in $layout-directions {
+  .flex-#{$value} {
+    flex-direction: $value;
+  }
+}
 @each $value in $layout-values {
   .justify-#{$value} {
     justify-content: $value;
   }
-}
-
-// gap-2, gap-3, gap-4 etc.
-$base-gap: 2px;
-@for $i from 1 through 8 {
-  .gap-#{$i} {
-    --_gap: #{$i * $base-gap};
-    gap: var(--_gap);
+  .align-#{$value} {
+    align-items: $value;
   }
 }
 
-// col-12-xs, col-5-md, col-3-lg etc.
+// || _-_-_-_-_-_ GAP _-_-_-_-_-_ || //
+
+@each $key, $value in $spacings {
+  .gap-#{$key} {
+    --_gap: #{$value};
+    gap: var(--_gap);
+  }
+  .gap-x-#{$key} {
+    --_gap: #{$value};
+    column-gap: var(--_gap);
+  }
+  .gap-y-#{$key} {
+    --_row-gap: #{$value};
+    row-gap: var(--_row-gap);
+  }
+}
+
+// || _-_-_-_-_-_ COLUMN _-_-_-_-_-_ || //
+.col-auto {
+  flex: 1 1 auto;
+}
+
 @for $i from 1 through $grid-columns {
   .col-#{$i} {
     --columns: calc(#{$grid-columns} / #{$i});
@@ -35,7 +75,11 @@ $base-gap: 2px;
   }
 }
 
+// || _-_-_-_-_-_ RESPONSIVE _-_-_-_-_-_ || //
 @include sm {
+  .col-auto-sm {
+    flex: 1 1 auto;
+  }
   @for $i from 1 through $grid-columns {
     .col-#{$i}-sm {
       --columns: calc(#{$grid-columns} / #{$i});
@@ -45,8 +89,52 @@ $base-gap: 2px;
       width: calc(calc(100% / $grid-columns * $i) - var(--gap));
     }
   }
+  /* Flex controls */
+  @each $value in $layout-directions {
+    .flex-#{$value}-sm {
+      flex-direction: $value;
+    }
+  }
+  @each $value in $layout-values {
+    .justify-#{$value}-sm {
+      justify-content: $value;
+    }
+    .align-#{$value}-sm {
+      align-items: $value;
+    }
+  }
+  @each $key, $value in $spacings {
+    .gap-#{$key}-sm {
+      --_gap: #{$value};
+      gap: var(--_gap);
+    }
+    .gap-x-#{$key}-sm {
+      --_gap: #{$value};
+      column-gap: var(--_gap);
+    }
+    .gap-y-#{$key}-sm {
+      --_row-gap: #{$value};
+      row-gap: var(--_row-gap);
+    }
+  }
 }
+/* Display */
+@each $value in $display {
+  @if $value == hidden {
+    .display-#{$value}-sm {
+      display: none;
+    }
+  } @else {
+    .display-#{$value}-sm {
+      display: $value;
+    }
+  }
+}
+
 @include md {
+  .col-auto-md {
+    flex: 1 1 auto;
+  }
   @for $i from 1 through $grid-columns {
     .col-#{$i}-md {
       --columns: calc(#{$grid-columns} / #{$i});
@@ -56,8 +144,52 @@ $base-gap: 2px;
       width: calc(calc(100% / $grid-columns * $i) - var(--gap));
     }
   }
+  /* Flex controls */
+  @each $value in $layout-directions {
+    .flex-#{$value}-md {
+      flex-direction: $value;
+    }
+  }
+  @each $value in $layout-values {
+    .justify-#{$value}-md {
+      justify-content: $value;
+    }
+    .align-#{$value}-md {
+      align-items: $value;
+    }
+  }
+  @each $key, $value in $spacings {
+    .gap-#{$key}-md {
+      --_gap: #{$value};
+      gap: var(--_gap);
+    }
+    .gap-x-#{$key}-md {
+      --_gap: #{$value};
+      column-gap: var(--_gap);
+    }
+    .gap-y-#{$key}-md {
+      --_row-gap: #{$value};
+      row-gap: var(--_row-gap);
+    }
+  }
 }
+/* Display */
+@each $value in $display {
+  @if $value == hidden {
+    .display-#{$value}-md {
+      display: none;
+    }
+  } @else {
+    .display-#{$value}-md {
+      display: $value;
+    }
+  }
+}
+
 @include lg {
+  .col-auto-lg {
+    flex: 1 1 auto;
+  }
   @for $i from 1 through $grid-columns {
     .col-#{$i}-lg {
       --columns: calc(#{$grid-columns} / #{$i});
@@ -67,8 +199,52 @@ $base-gap: 2px;
       width: calc(calc(100% / $grid-columns * $i) - var(--gap));
     }
   }
+  /* Flex controls */
+  @each $value in $layout-directions {
+    .flex-#{$value}-lg {
+      flex-direction: $value;
+    }
+  }
+  @each $value in $layout-values {
+    .justify-#{$value}-lg {
+      justify-content: $value;
+    }
+    .align-#{$value}-lg {
+      align-items: $value;
+    }
+  }
+  @each $key, $value in $spacings {
+    .gap-#{$key}-lg {
+      --_gap: #{$value};
+      gap: var(--_gap);
+    }
+    .gap-x-#{$key}-lg {
+      --_gap: #{$value};
+      column-gap: var(--_gap);
+    }
+    .gap-y-#{$key}-lg {
+      --_row-gap: #{$value};
+      row-gap: var(--_row-gap);
+    }
+  }
 }
+/* Display */
+@each $value in $display {
+  @if $value == hidden {
+    .display-#{$value}-lg {
+      display: none;
+    }
+  } @else {
+    .display-#{$value}-lg {
+      display: $value;
+    }
+  }
+}
+
 @include xl {
+  .col-auto-xl {
+    flex: 1 1 auto;
+  }
   @for $i from 1 through $grid-columns {
     .col-#{$i}-xl {
       --columns: calc(#{$grid-columns} / #{$i});
@@ -78,8 +254,52 @@ $base-gap: 2px;
       width: calc(calc(100% / $grid-columns * $i) - var(--gap));
     }
   }
+  /* Flex controls */
+  @each $value in $layout-directions {
+    .flex-#{$value}-xl {
+      flex-direction: $value;
+    }
+  }
+  @each $value in $layout-values {
+    .justify-#{$value}-xl {
+      justify-content: $value;
+    }
+    .align-#{$value}-xl {
+      align-items: $value;
+    }
+  }
+  @each $key, $value in $spacings {
+    .gap-#{$key}-xl {
+      --_gap: #{$value};
+      gap: var(--_gap);
+    }
+    .gap-x-#{$key}-xl {
+      --_gap: #{$value};
+      column-gap: var(--_gap);
+    }
+    .gap-y-#{$key}-xl {
+      --_row-gap: #{$value};
+      row-gap: var(--_row-gap);
+    }
+  }
 }
+/* Display */
+@each $value in $display {
+  @if $value == hidden {
+    .display-#{$value}-xl {
+      display: none;
+    }
+  } @else {
+    .display-#{$value}-xl {
+      display: $value;
+    }
+  }
+}
+
 @include xxl {
+  .col-auto-xxl {
+    flex: 1 1 auto;
+  }
   @for $i from 1 through $grid-columns {
     .col-#{$i}-xxl {
       --columns: calc(#{$grid-columns} / #{$i});
@@ -87,6 +307,46 @@ $base-gap: 2px;
       --gap: calc(var(--_gap) * (var(--columns) - 1) / var(--columns));
       flex-grow: 0;
       width: calc(calc(100% / $grid-columns * $i) - var(--gap));
+    }
+  }
+  /* Flex controls */
+  @each $value in $layout-directions {
+    .flex-#{$value}-xxl {
+      flex-direction: $value;
+    }
+  }
+  @each $value in $layout-values {
+    .justify-#{$value}-xxl {
+      justify-content: $value;
+    }
+    .align-#{$value}-xxl {
+      align-items: $value;
+    }
+  }
+  @each $key, $value in $spacings {
+    .gap-#{$key}-xxl {
+      --_gap: #{$value};
+      gap: var(--_gap);
+    }
+    .gap-x-#{$key}-xxl {
+      --_gap: #{$value};
+      column-gap: var(--_gap);
+    }
+    .gap-y-#{$key}-xxl {
+      --_row-gap: #{$value};
+      row-gap: var(--_row-gap);
+    }
+  }
+}
+/* Display */
+@each $value in $display {
+  @if $value == hidden {
+    .display-#{$value}-xxl {
+      display: none;
+    }
+  } @else {
+    .display-#{$value}-xxl {
+      display: $value;
     }
   }
 }

@@ -1,0 +1,212 @@
+//! Order Of the imports Matters. DO NOT CHANGE IF YOU DON'T KNOW WHAT YOU'RE DOING!!!
+@import "breakpoints";
+@import "spacings";
+@import "grid";
+
+// || Font-Family
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap");
+
+:root {
+  // || _-_-_-_-_-_ Change these variables According to your needs _-_-_-_-_-_ || //
+
+  // Fluid font size variables, for browsers that support clamp
+  // On 360px the base font size is 16 and scale ratio is 1.125 (major second) and
+  // On 1440px the base font size is 16 and scale ration is 1.2 (minor third)
+  // || Font Sizes
+  --fs-sm: clamp(1.42rem, -0.08vw + 1.45rem, 1.33rem);
+  --fs-base: clamp(1.6rem, 0vw + 1.6rem, 1.6rem);
+  --fs-h6: clamp(1.8rem, 0.11vw + 1.76rem, 1.92rem);
+  --fs-h5: clamp(2.02rem, 0.26vw + 1.93rem, 2.3rem);
+  --fs-h4: clamp(2.28rem, 0.46vw + 2.11rem, 2.76rem);
+  --fs-h3: clamp(2.56rem, 0.71vw + 2.3rem, 3.32rem);
+  --fs-h2: clamp(2.88rem, 1.03vw + 2.5rem, 3.98rem);
+  --fs-h1: clamp(3.24rem, 1.44vw + 2.7rem, 4.78rem);
+
+  // || Typography
+  --ff-heading: "Roboto Mono", monospace, -apple-system, BlinkMacSystemFont;
+  --ff-base: "Roboto Mono", monospace, -apple-system, BlinkMacSystemFont;
+
+  // || Colors
+  --brand: #2026a2;
+  --text: #2f2f2f;
+  --secondary: #2b44ff;
+  --bg: #f9f9f9;
+
+  // || Amazing Easing Functions
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  // || Line Heights
+  --lh-heading: 1.6;
+  --lh-base: 1.6;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font: inherit;
+  -webkit-tap-highlight-color: transparent; // To remove the tap highlights on touch screens.
+}
+
+html {
+  font-size: 62.5%; // This makes 1rem = 10px; From Now on Divide any pixel value by 10 to covert into rem value; ((OPTIONAL))
+  font-family: var(--ff-base);
+
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+body {
+  min-height: 100vh;
+  font-size: var(
+    --fs-base,
+    1.6rem
+  ); // This resets the body font size to 16px without changing the html font-size. So, that you can use divide by 10 technique without any problems.
+  color: var(--text);
+  background-color: var(--bg);
+  overflow-x: hidden; // Fixes for horizontal scrolling issue. ((OPTIONAL))
+}
+
+// --custom scrollbar ((OPTIONAL))-----------------
+// body::-webkit-scrollbar {
+//   width: 0.7rem;
+// }
+
+// body::-webkit-scrollbar-thumb {
+//   background-color: var(--brand);
+//   outline: none;
+// }
+// --custom scrollbar ((OPTIONAL))------------------
+
+section {
+  width: 100%;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--ff-heading);
+  font-weight: bold;
+  color: inherit;
+  line-height: var(--lh-heading);
+}
+
+/* --------------------------------------- */
+
+h1 {
+  font-size: var(--fs-h1);
+}
+h2 {
+  font-size: var(--fs-h2);
+}
+h3 {
+  font-size: var(--fs-h3);
+}
+h4 {
+  font-size: var(--fs-h4);
+}
+h5 {
+  font-size: var(--fs-h5);
+}
+h6 {
+  font-size: var(--fs-h6);
+}
+
+p {
+  font-size: 1.6rem;
+  line-height: var(--lh-base);
+}
+
+p.is-sm {
+  // ((OPTIONAL))
+  font-size: var(--fs-sm);
+}
+
+// || _-_-_-_-_-_ Custom CSS Resets _-_-_-_-_-_ || //
+a,
+button,
+input,
+select,
+textarea {
+  color: inherit;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  appearance: none;
+  text-decoration: none;
+}
+input,
+select,
+textarea {
+  &::placeholder {
+    opacity: 0.6;
+  }
+}
+
+a,
+button {
+  cursor: pointer;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+li {
+  list-style: none;
+}
+
+img,
+svg,
+picture,
+video {
+  width: 100vw;
+  height: 100%;
+  max-width: 100%;
+  object-position: center;
+}
+
+svg,
+svg g {
+  fill: currentColor;
+}
+svg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-container {
+  // Must be used as a parent of an img to make the image more responsive. ((OPTIONAL))
+  display: flex;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+// || _-_-_-_-_-_ Utility Classes _-_-_-_-_-_ || //
+// ((OPTIONAL))
+.container {
+  width: clamp(36rem, 100vw, 144rem); // Min-width: 360px, Max-width: 1440px
+  padding-inline: clamp(2rem, 5.56vw + 0rem, 8rem);
+  margin-inline: auto;
+
+  @include xl {
+    & {
+      padding-inline: 0; // Above 1440px the padding is set to 0
+    }
+  }
+}
+
+.is-brand {
+  // ((OPTIONAL))
+  color: var(--brand);
+}
